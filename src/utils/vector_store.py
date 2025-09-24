@@ -49,18 +49,20 @@ class VectorStoreManager:
     def _create_new_index(self) -> FAISS:
         """Tworzy nowy indeks FAISS z dokumentu normy."""
         st.info("Tworzę nową bazę wiedzy z dokumentu normy. To może chwilę potrwać...")
-        
+
         # Wczytanie dokumentu normy
         with open(Config.NORM_FILE_PATH, "r", encoding="utf-8") as f:
             norm_text = f.read()
-        
+
         # Zaawansowany chunking
-        chunker = HybridChunker(
-            chunk_size=Config.CHUNK_SIZE, 
-            chunk_overlap=Config.CHUNK_OVERLAP
-        )
-        docs = chunker.chunk_document(norm_text)
-        
+        # chunker = HybridChunker(
+        #     chunk_size=Config.CHUNK_SIZE,
+        #     chunk_overlap=Config.CHUNK_OVERLAP
+        # )
+        # docs = chunker.chunk_document(norm_text)
+        from .advanced_chunking import chunk_markdown_by_header
+        docs = chunk_markdown_by_header(norm_text)
+
         # Utworzenie bazy wektorowej
         vector_store = FAISS.from_documents(docs, self.embeddings)
         

@@ -65,38 +65,6 @@ def create_sidebar():
         
         st.divider()
         
-        # Konfiguracja modelu
-        st.subheader("⚙️ Konfiguracja")
-        
-        selected_model = st.selectbox(
-            "Model językowy:",
-            options=list(Config.AVAILABLE_MODELS.keys()),
-            format_func=lambda x: Config.AVAILABLE_MODELS[x],
-            index=list(Config.AVAILABLE_MODELS.keys()).index(Config.DEFAULT_MODEL)
-        )
-        
-        temperature = st.slider(
-            "Temperatura (kreatywność):",
-            min_value=0.0,
-            max_value=1.0,
-            value=Config.DEFAULT_TEMPERATURE,
-            step=0.1
-        )
-        
-        if st.button("Zastosuj ustawienia"):
-            st.session_state.chatbot.change_model(selected_model, temperature)
-            model_info = st.session_state.chatbot.get_model_info()
-            st.success(f"Zmieniono model na {model_info['display_name']}")
-        
-        st.divider()
-        
-        # Informacje o aktualnym modelu
-        if hasattr(st.session_state, 'chatbot'):
-            model_info = st.session_state.chatbot.get_model_info()
-            st.write(f"**Aktualny model:** {model_info['display_name']}")
-            st.write(f"**Temperatura:** {model_info['temperature']}")
-        
-        st.divider()
         st.write("© 2025 Normica")
 
 

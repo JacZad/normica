@@ -1,9 +1,34 @@
+# Pliki danych normy
 GEMINI.md
 en301549.md
-src/__pycache__/__init__.cpython-313.pyc
-src/config/__pycache__/__init__.cpython-313.pyc
+
+# Stara wersja aplikacji
 app_streamlit.py
-en301549.md
-faiss_index/index.faiss
-faiss_index/index.pkl
-src/chatbot/__pycache__/__init__.cpython-313.pyc
+
+# FAISS index
+faiss_index/
+*.faiss
+*.pkl
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Pliki tymczasowe
+*_old.*
+*_temp.*
+*_test.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
