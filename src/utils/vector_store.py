@@ -10,7 +10,7 @@ from langchain_core.documents import Document
 from typing import Optional
 
 from ..config.settings import Config
-from .advanced_chunking import HybridChunker
+from .advanced_chunking import chunk_markdown_by_header
 
 
 class VectorStoreManager:
@@ -20,15 +20,37 @@ class VectorStoreManager:
         self.embeddings = embeddings or OpenAIEmbeddings()
         self.vector_store: Optional[FAISS] = None
     
-    def get_or_create_vector_store(self) -> FAISS:
+    def delete_index(self) -> None:
+        """Usuwa istniejący indeks FAISS."""
+        if os.path.exists(Config.FAISS_INDEX_PATH):
+            try:
+                import shutil
+                shutil.rmtree(Config.FAISS_INDEX_PATH)
+                st.warning("Usunięto poprzednią bazę wektorową.")
+            except Exception as e:
+                st.error(f"Błąd przy usuwaniu bazy wektorowej: {e}")
+    
+    def rebuild_index(self) -> FAISS:
+        """Wymusza przebudowanie indeksu FAISS."""
+        self.delete_index()
+        self.vector_store = None
+        return self._create_new_index()
+    
+    def get_or_create_vector_store(self, force_rebuild: bool = False) -> FAISS:
         """
         Wczytuje istniejącą bazę wektorową lub tworzy nową.
         
+        Args:
+            force_rebuild: Czy wymusić przebudowę bazy, nawet jeśli istnieje
+            
         Returns:
             FAISS: Baza wektorowa
         """
         if self.vector_store is not None:
             return self.vector_store
+        
+        if force_rebuild:
+            return self.rebuild_index()
             
         if os.path.exists(Config.FAISS_INDEX_PATH):
             self.vector_store = self._load_existing_index()
@@ -55,12 +77,7 @@ class VectorStoreManager:
             norm_text = f.read()
 
         # Zaawansowany chunking
-        # chunker = HybridChunker(
-        #     chunk_size=Config.CHUNK_SIZE,
-        #     chunk_overlap=Config.CHUNK_OVERLAP
-        # )
-        # docs = chunker.chunk_document(norm_text)
-        from .advanced_chunking import chunk_markdown_by_header
+        # Używamy funkcji chunk_markdown_by_header, która dzieli tekst do poziomu nagłówka 4
         docs = chunk_markdown_by_header(norm_text)
 
         # Utworzenie bazy wektorowej

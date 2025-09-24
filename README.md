@@ -1,6 +1,9 @@
 # 📘 Normica
 
-Normica to inteligentny asystent chatbot specjalizujący się w normie EN 301 549 dotyczącej dostępności ICT (Information and Communication Technology). Wykorzystuje modele LLM (np. GPT-4o-mini) przez LangChain do zapewnienia dokładnych i pomocnych odpowiedzi na pytania dotyczące standardów dostępności.
+Normica to inteligentny asystent chatbot specjalizujący s    ├── advanced_tools.py  # Zaawansowane narzędzia wyszukiwania
+└── utils/           # Komponenty przetwarzania dokumentów
+    ├── advanced_chunking.py  # Funkcja chunk_markdown_by_header
+    ├── vector_store.py       # Zarządzanie bazą wektorową FAISS normie EN 301 549 dotyczącej dostępności ICT (Information and Communication Technology). Wykorzystuje modele LLM (np. GPT-4o-mini) przez LangChain do zapewnienia dokładnych i pomocnych odpowiedzi na pytania dotyczące standardów dostępności.
 
 ![Normica](normica_logo.svg)
 
@@ -77,11 +80,10 @@ src/
     └── chunking_optimizer.py # Optymalizacja parametrów (opcjonalne)
 ```
 
-### Główne klasy
+### Główne klasy i funkcje
 
 - **`NormicaChatbot`** - główny chatbot z obsługą narzędzi i RAG
-- **`MarkdownChunker`** - inteligentny chunker dla dokumentów Markdown  
-- **`HybridChunker`** - chunker hybrydowy z fallback
+- **`chunk_markdown_by_header`** - funkcja dzieląca dokumenty markdown do poziomu nagłówka H4
 - **`VectorStoreManager`** - zarządzanie bazą wektorową FAISS
 
 ## 🚀 Rozpoczęcie pracy
@@ -138,18 +140,11 @@ Po uruchomieniu interfejs webowy będzie dostępny pod adresem: `http://localhos
 
 Normica używa zaawansowanego systemu chunkingu specjalnie zaprojektowanego dla dokumentów Markdown:
 
-### MarkdownChunker
+### Funkcja `chunk_markdown_by_header`
 
-- **Hierarchiczna struktura** - respektuje nagłówki Markdown (`#`, `##`, `###`)
-- **Inteligentne rozpoznawanie typów** - automatycznie klasyfikuje chunki jako:
-  - Requirements (słowa kluczowe: "shall", "must")
-  - Definitions (zawierające definicje)
-  - Examples (bloki kodu)
-  - Tables (tabele Markdown)
-  - Lists (listy punktowane/numerowane)
-  - Notes (cytaty i notatki)
-- **Adaptacyjne dzielenie** - automatyczne dostosowanie rozmiaru do treści
-- **Bogate metadane** - informacje o sekcji, typie, słowach kluczowych
+- **Hierarchiczna struktura** - respektuje nagłówki Markdown od H1 do H4 (`#`, `##`, `###`, `####`)
+- **Dzielenie dokumentu** - podział tekstu na mniejsze fragmenty ułatwiające wyszukiwanie
+- **Bogate metadane** - zachowuje informacje o strukturze dokumentu
 
 ---
 

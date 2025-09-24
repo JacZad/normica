@@ -19,6 +19,21 @@ def setup_page_config():
     )
 
 
+def setup_sidebar():
+    """Konfiguracja paska bocznego."""
+    with st.sidebar:
+        st.header("⚙️ Ustawienia")
+        
+        # Sekcja bazy wektorowej
+        st.subheader("Baza wektorowa")
+        if st.button("Przebuduj bazę wektorową", type="primary", key="rebuild_index"):
+            from src.utils.vector_store import VectorStoreManager
+            manager = VectorStoreManager()
+            manager.rebuild_index()
+            st.success("Baza wektorowa została przebudowana!")
+            st.rerun()
+
+
 def display_header():
     """Wyświetlenie nagłówka aplikacji."""
     if os.path.exists(Config.LOGO_SVG_PATH):
@@ -94,6 +109,9 @@ def main():
     """Główna funkcja aplikacji."""
     # Konfiguracja strony
     setup_page_config()
+    
+    # Konfiguracja paska bocznego
+    setup_sidebar()
     
     # Wyświetlenie nagłówka
     display_header()
