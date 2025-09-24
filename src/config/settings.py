@@ -9,8 +9,8 @@ class Config:
     """Konfiguracja aplikacji."""
     
     # OpenAI
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    
+    # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
     # Domyślne ustawienia
     DEFAULT_MODEL = "gpt-4o-mini"
