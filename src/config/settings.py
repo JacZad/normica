@@ -4,6 +4,8 @@ Konfiguracja aplikacji Normica.
 import os
 from typing import Dict, List
 
+import streamlit as st
+
 
 class Config:
     """Konfiguracja aplikacji."""
