@@ -1,14 +1,15 @@
 # 📘 Normica
 
-Normica to inteligentny asystent chatbot specjalizujący s    ├── advanced_tools.py  # Zaawansowane narzędzia wyszukiwania
-└── utils/           # Komponenty przetwarzania dokumentów
-    ├── advanced_chunking.py  # Funkcja chunk_markdown_by_header
-    ├── vector_store.py       # Zarządzanie bazą wektorową FAISS normie EN 301 549 dotyczącej dostępności ICT (Information and Communication Technology). Wykorzystuje modele LLM (np. GPT-4o-mini) przez LangChain do zapewnienia dokładnych i pomocnych odpowiedzi na pytania dotyczące standardów dostępności.
+👉 **Działające demo:** [normica.streamlit.app](https://normica.streamlit.app)
+
+Normica to inteligentny asystent chatbot specjalizujący się w normie EN 301 549 dotyczącej dostępności ICT (Information and Communication Technology). Wykorzystuje modele LLM (np. GPT-4o-mini) przez LangChain do zapewnienia dokładnych i pomocnych odpowiedzi na pytania dotyczące standardów dostępności.
 
 ![Normica](normica_logo.svg)
 
 **Repozytorium:** [github.com/JacZad/normica](https://github.com/JacZad/normica)
+
 ---
+
 ## 🌟 Interfejs Streamlit
 
 ![Streamlit UI](normica_logo.svg)
@@ -33,7 +34,6 @@ Aplikacja będzie dostępna pod adresem: `http://localhost:8501`
 - Sprawdź, czy zainstalowałeś wszystkie wymagane pakiety (`pip install -r requirements.txt`)
 - Jeśli pojawią się błędy, sprawdź logi w konsoli lub otwórz [issue na GitHub](https://github.com/JacZad/normica/issues)
 
----
 ---
 
 ## 🌟 Funkcje
